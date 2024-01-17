@@ -1,31 +1,16 @@
-h1 {
-  color: #333;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  margin: 10px 0;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.texte {
-  color: #333;
-}
-
 .add-blog-container {
-  max-width: 400px;
-  margin: 0 auto;
+  max-width: 600px;
+  margin: 40px auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-blog-form h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .add-blog-form {
@@ -35,33 +20,214 @@ li {
 
 .add-blog-form label {
   margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
 }
 
-.add-blog-form input,
+.add-blog-form input[type="text"],
 .add-blog-form textarea {
   padding: 10px;
-  
-  margin-bottom: 10px;
-  border: 1px solid #007bff;
-  border-radius: 5px;
-  outline: none; 
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
-.add-blog-form input::placeholder,
-.add-blog-form textarea::placeholder {
-  color: #aaa; 
+.add-blog-form textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
 .add-blog-form button {
-  padding: 10px;
+  padding: 10px 15px;
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-blog-form button:hover {
+  background-color: #0056b3;
 }
 
 .success-message {
-  color: green;
+  color: #28a745;
+  font-weight: bold;
+  text-align: center;
   margin-top: 10px;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  10%, 90% { opacity: 1; }
+}
+
+.blog-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.blog-item {
+  border: 1px solid #ddd;
+  padding: 20px;
+  width: 300px;
+  background-color: #f9f9f9; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.blog-image {
+  max-width: 100%; 
+  height: 200px; 
+  object-fit: cover; 
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+.delete-confirmation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  text-align: center;
+}
+
+.delete-confirmation p {
+  margin-bottom: 20px;
+  color: #333; 
+}
+
+.delete-confirmation button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+
+.delete-button {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.delete-button:hover {
+  background: #d32f2f; 
+  z-index: 99999;
+}
+
+.edit-blog-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-blog-container h2 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.edit-blog-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-blog-form label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.edit-blog-form input[type="text"],
+.edit-blog-form textarea {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.edit-blog-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.edit-blog-form button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.edit-blog-form button:hover {
+  background-color: #0056b3;
+}
+
+.accueil-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.blog-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  background-color: #fff;
+  width: 100%;
+  max-width: 600px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.blog-card img {
+  width: 100%;
+  max-height: 300px; 
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.blog-card .texte {
+  padding: 20px;
+}
+
+.blog-card .texte strong {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+
+.blog-card .texte p {
+  font-size: 1em;
+  color: #666;
+  line-height: 1.5;
 }

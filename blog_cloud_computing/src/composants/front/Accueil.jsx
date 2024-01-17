@@ -11,21 +11,19 @@ const Accueil = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Liste des Blogs</h1>
-      <ul>
+    <div className="accueil-container">
+        <h1>Liste des Blogs</h1>
         {blogs.map(blog => (
-          <li key={blog.id}>
-            <p className='texte'>
-            <strong>{blog.titre}</strong> - {blog.description}
-            <br/>
-            {blog.image_url && <img src={blog.image_url} alt={`Image pour ${blog.titre}`} />}
-            </p>
-          </li>
+            <div key={blog.id} className="blog-card">
+                <div className="texte">
+                    <strong>{blog.titre}</strong>
+                    <p>{blog.description}</p>
+                    {blog.image_url && <img src={blog.image_url} alt={`Image pour ${blog.titre}`} />}
+                </div>
+            </div>
         ))}
-      </ul>
     </div>
-  );
+);
 }
 
 export default Accueil;

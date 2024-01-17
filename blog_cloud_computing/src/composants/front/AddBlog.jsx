@@ -21,7 +21,7 @@ function AddBlog() {
     });
 
     if (response.ok) {
-      setMessage('Blog ajouté avec succès'); // Mettez à jour le message de confirmation
+      setMessage('Blog ajouté avec succès'); 
     }
   };
 
@@ -29,24 +29,24 @@ function AddBlog() {
     <div className="add-blog-container">
       <form onSubmit={handleSubmit} className="add-blog-form">
         <h2>Ajouter un Blog</h2>
-        <div>
+        <div className="form-group">
           <label>Titre:</label>
-          <input type="text" value={titre} onChange={(e) => setTitre(e.target.value)} required />
+          <input type="text" className="form-control" value={titre} onChange={(e) => setTitre(e.target.value)} required />
         </div>
-        <div>
+        <div className="form-group">
           <label>Description:</label>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} required></textarea>
+          <textarea value={description} className="form-control" onChange={(e) => setDescription(e.target.value)} required></textarea>
         </div>
-        <div>
+        <div className="form-group">
           <label>URL de l'Image:</label>
-          <input type="text" value={image_url} onChange={(e) => setImageUrl(e.target.value)} />
+          <input type="text" value={image_url} className="form-control" onChange={(e) => setImageUrl(e.target.value)} />
         </div>
-        <div>
+        <div className="form-group">
           <label>Pseudo:</label>
-          <input type="text" value={pseudo} onChange={(e) => setPseudo(e.target.value)} required />
+          <input type="text" value={pseudo} className="form-control" onChange={(e) => setPseudo(e.target.value)} required />
         </div>
         <button type="submit">Ajouter le Blog</button>
-        {message && <p className="success-message">{message}</p>} {/* Afficher le message de confirmation */}
+        {message && <p className="success-message">{message}</p>} 
       </form>
     </div>
   );
