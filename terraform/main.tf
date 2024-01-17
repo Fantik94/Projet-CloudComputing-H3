@@ -25,21 +25,21 @@ resource "azurerm_virtual_network" "example_vnet" {
 }
 
 resource "azurerm_public_ip" "example" {
-  name                = "fantik-publicip"
+  name                = "Damien-Baptiste-publicip"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   allocation_method   = "Static"
 }
 
 resource "azurerm_ssh_public_key" "example" {
-  name                = "fantik-sshkey"
+  name                = "Damien-Baptiste-sshkey"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   public_key          = file("C:/Users/bapti/.ssh/id_rsa.pub") 
 }
 
 resource "azurerm_subnet" "example" {
-  name                 = "fantik-subnet"
+  name                 = "Damien-Baptiste-subnet"
   resource_group_name  = azurerm_resource_group.example.name
   virtual_network_name = azurerm_virtual_network.example_vnet.name
   address_prefixes     = ["10.0.1.0/24"]
@@ -47,7 +47,7 @@ resource "azurerm_subnet" "example" {
 
 
 resource "azurerm_network_interface" "example" {
-  name                = "fantik-nic"
+  name                = "Damien-Baptiste-nic"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
@@ -60,7 +60,7 @@ resource "azurerm_network_interface" "example" {
 }
 
 resource "azurerm_linux_virtual_machine" "example" {
-  name                = "fantik-vm"
+  name                = "Damien-Baptiste-vm"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   size                = "Standard_F4"
@@ -86,7 +86,7 @@ resource "azurerm_linux_virtual_machine" "example" {
 }
 
 resource "azurerm_mysql_server" "example" {
-  name                = "fantikmysqlserver"
+  name                = "Damien-Baptiste-mysqlserver"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
@@ -107,7 +107,7 @@ resource "azurerm_mysql_server" "example" {
 }
 
 resource "azurerm_mysql_database" "example" {
-  name                = "fantikmysqldb"
+  name                = "Damien-Baptiste-mysqldb"
   resource_group_name = azurerm_resource_group.example.name
   server_name         = azurerm_mysql_server.example.name
   charset             = "utf8"
