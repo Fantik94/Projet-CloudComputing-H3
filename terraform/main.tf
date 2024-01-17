@@ -13,7 +13,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "Damien-Baptiste-rg"
+  name     = "tipiak-rg"
   location = "West Europe"
 }
 
@@ -31,12 +31,14 @@ resource "azurerm_public_ip" "example" {
   allocation_method   = "Static"
 }
 
+/*
 resource "azurerm_ssh_public_key" "example" {
   name                = "Damien-Baptiste-sshkey"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   public_key          = file("C:/Users/bapti/.ssh/id_rsa.pub") 
 }
+*/
 
 resource "azurerm_subnet" "example" {
   name                 = "Damien-Baptiste-subnet"
@@ -64,7 +66,8 @@ resource "azurerm_linux_virtual_machine" "example" {
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
   size                = "Standard_F4"
-  admin_username      = "fantik"
+  admin_username      = "dadabapt"
+  admin_password      = "Dadabapt94340@"
   network_interface_ids = [azurerm_network_interface.example.id]
 
   os_disk {
@@ -78,20 +81,22 @@ resource "azurerm_linux_virtual_machine" "example" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
-
+/*
   admin_ssh_key {
     username   = "fantik"
     public_key = azurerm_ssh_public_key.example.public_key
   }
+  */
+  disable_password_authentication = false
 }
 
 resource "azurerm_mysql_server" "example" {
-  name                = "Damien-Baptiste-mysqlserver"
+  name                = "damienbaptistemysqlserver"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
   administrator_login          = "mysqladmin"
-  administrator_login_password = "unMotDePasseTrèsSécurisé123!"
+  administrator_login_password = "Dadabapt94340@"
 
   sku_name   = "GP_Gen5_2"
   storage_mb = 5120
@@ -107,7 +112,7 @@ resource "azurerm_mysql_server" "example" {
 }
 
 resource "azurerm_mysql_database" "example" {
-  name                = "Damien-Baptiste-mysqldb"
+  name                = "damienbaptistemysqldb"
   resource_group_name = azurerm_resource_group.example.name
   server_name         = azurerm_mysql_server.example.name
   charset             = "utf8"
