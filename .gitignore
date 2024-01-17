@@ -1,6 +1,7 @@
 *.tfstate
 *.tfstate.backup
 *.tfplan
+node_modules
 
 
 **/.terraform/
