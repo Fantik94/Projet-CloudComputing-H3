@@ -28,6 +28,16 @@ app.get('/test-db', (req, res) => {
   });
 });
 
+app.get('/blogs', (req, res) => {
+    connection.query('SELECT * FROM blog', (err, results) => {
+      if (err) {
+        return res.status(500).send('Erreur lors de la récupération des données : ' + err.message);
+      }
+      res.json(results);
+    });
+  });
+  
+
 // Démarrage du serveur
 const PORT = 3000;
 app.listen(PORT, () => {
