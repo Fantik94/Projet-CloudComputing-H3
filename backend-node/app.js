@@ -15,61 +15,73 @@ const connection = mysql.createConnection({
     password: 'Dadabapt94340@',
     database: 'damienbaptistemysqldb',
     port: 3306,
-    ssl  : {
-        ca : fs.readFileSync('DigiCertGlobalRootG2.crt.pem')
-      }
-  });
+    ssl: {
+        ca: fs.readFileSync('DigiCertGlobalRootG2.crt.pem')
+    }
+});
 
 // Endpoint pour tester la connexion à la base de données
 app.get('/test-db', (req, res) => {
-  connection.connect(err => {
-    if (err) {
-      return res.status(500).send('Erreur lors de la connexion à la base de données : ' + err.message);
+    try {
+        connection.connect();
+        res.send('Connexion à la base de données réussie !');
+    } catch (err) {
+        res.status(500).send('Erreur lors de la connexion à la base de données : ' + err.message);
     }
-    res.send('Connexion à la base de données réussie !');
-  });
 });
 
 app.get('/all-blogs', (req, res) => {
-    connection.query('SELECT * FROM blog', (err, results) => {
-      if (err) {
-        return res.status(500).send('Erreur lors de la récupération des données : ' + err.message);
-      }
-      res.json(results);
-    });
-  });
-  
-
-app.post('/blogs', (req, res) => {
-  const { titre, description, image_url, pseudo } = req.body;
-  const query = 'INSERT INTO blog (titre, description, image_url, pseudo) VALUES (?, ?, ?, ?)';
-
-  connection.query(query, [titre, description, image_url, pseudo], (err, results) => {
-    if (err) {
-      return res.status(500).send('Erreur lors de l\'ajout de l\'entrée : ' + err.message);
+    try {
+        connection.query('SELECT * FROM blog', (err, results) => {
+            if (err) {
+                res.status(500).send('Erreur lors de la récupération des données : ' + err.message);
+            } else {
+                res.json(results);
+            }
+        });
+    } catch (err) {
+        res.status(500).send('Erreur lors de la récupération des données : ' + err.message);
     }
-    res.status(201).send(`Entrée ajoutée avec l'ID: ${results.insertId}`);
-  });
 });
 
+app.post('/blogs', (req, res) => {
+    try {
+        const { titre, description, image_url, pseudo } = req.body;
+        const query = 'INSERT INTO blog (titre, description, image_url, pseudo) VALUES (?, ?, ?, ?)';
+
+        connection.query(query, [titre, description, image_url, pseudo], (err, results) => {
+            if (err) {
+                res.status(500).send('Erreur lors de l\'ajout de l\'entrée : ' + err.message);
+            } else {
+                res.status(201).send(`Entrée ajoutée avec l'ID: ${results.insertId}`);
+            }
+        });
+    } catch (err) {
+        res.status(500).send('Erreur lors de l\'ajout de l\'entrée : ' + err.message);
+    }
+});
 
 app.delete('/blogs/:id', (req, res) => {
-    const { id } = req.params;
-    const query = 'DELETE FROM blog WHERE id = ?';
-  
-    connection.query(query, [id], (err, results) => {
-      if (err) {
-        return res.status(500).send('Erreur lors de la suppression de l\'entrée : ' + err.message);
-      }
-      if (results.affectedRows === 0) {
-        return res.status(404).send('Aucune entrée trouvée avec cet ID.');
-      }
-      res.send(`Entrée avec l'ID ${id} a été supprimée.`);
-    });
-  });
+    try {
+        const { id } = req.params;
+        const query = 'DELETE FROM blog WHERE id = ?';
+
+        connection.query(query, [id], (err, results) => {
+            if (err) {
+                res.status(500).send('Erreur lors de la suppression de l\'entrée : ' + err.message);
+            } else if (results.affectedRows === 0) {
+                res.status(404).send('Aucune entrée trouvée avec cet ID.');
+            } else {
+                res.send(`Entrée avec l'ID ${id} a été supprimée.`);
+            }
+        });
+    } catch (err) {
+        res.status(500).send('Erreur lors de la suppression de l\'entrée : ' + err.message);
+    }
+});
 
 // Démarrage du serveur
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Serveur démarré sur http://localhost:${PORT}`);
+    console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });

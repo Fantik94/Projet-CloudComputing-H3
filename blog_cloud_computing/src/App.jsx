@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Menu from './composants/Menu'
+import './App.css'
+
 
 function App() {
 
