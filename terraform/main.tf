@@ -63,7 +63,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   name                = "fantik-vm"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
-  size                = "Standard_F2"
+  size                = "Standard_F4"
   admin_username      = "fantik"
   network_interface_ids = [azurerm_network_interface.example.id]
 
@@ -85,6 +85,38 @@ resource "azurerm_linux_virtual_machine" "example" {
   }
 }
 
+resource "azurerm_mysql_server" "example" {
+  name                = "fantikmysqlserver"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+
+  administrator_login          = "mysqladmin"
+  administrator_login_password = "unMotDePasseTrèsSécurisé123!"
+
+  sku_name   = "GP_Gen5_2"
+  storage_mb = 5120
+  version    = "5.7"
+
+  auto_grow_enabled                 = true
+  backup_retention_days             = 7
+  geo_redundant_backup_enabled      = false
+  infrastructure_encryption_enabled = false
+  public_network_access_enabled     = false
+  ssl_enforcement_enabled           = true
+  ssl_minimal_tls_version_enforced  = "TLS1_2"
+}
+
+resource "azurerm_mysql_database" "example" {
+  name                = "fantikmysqldb"
+  resource_group_name = azurerm_resource_group.example.name
+  server_name         = azurerm_mysql_server.example.name
+  charset             = "utf8"
+  collation           = "utf8_unicode_ci"
+}
+
+
+
+/*
 resource "azurerm_mssql_server" "example" {
   name                         = "fantik-sqlserver"
   resource_group_name          = azurerm_resource_group.example.name
@@ -113,4 +145,4 @@ resource "azurerm_mssql_firewall_rule" "example" {
   server_id           = azurerm_mssql_server.example.id
   start_ip_address    = "0.0.0.0" 
   end_ip_address      = "0.0.0.0"
-}
+}*/
