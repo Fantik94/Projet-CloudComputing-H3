@@ -4,7 +4,7 @@ const Accueil = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/all-blogs')
+    fetch('http://20.111.16.18:3000/all-blogs')
       .then(response => response.json())
       .then(data => setBlogs(data))
       .catch(error => console.error('Erreur lors de la récupération des blogs', error));
