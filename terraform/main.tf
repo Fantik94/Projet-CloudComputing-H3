@@ -265,6 +265,7 @@ resource "azurerm_network_security_rule" "custom_3001_out_rule" {
   network_security_group_name = azurerm_network_security_group.example_nsg.name
 }
 
+/*
 resource "azurerm_network_security_rule" "allow_internet_out_rule" {
   name                        = "AllowInternetOutBound"
   priority                    = 65001
@@ -292,4 +293,4 @@ resource "azurerm_network_security_rule" "deny_all_out_rule" {
   resource_group_name         = azurerm_resource_group.example.name
   network_security_group_name = azurerm_network_security_group.example_nsg.name
 }
-
+*/
