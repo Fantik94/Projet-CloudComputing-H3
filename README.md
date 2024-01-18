@@ -1,13 +1,13 @@
 # Projet Cloud Computing - DADABAPT.blog
 
 ## Vue d'ensemble
-Ce projet implique le déploiement d'un blog utilisant React pour le front-end et Node.js pour le back-end. Hébergé sur Azure, il offre une expérience utilisateur dynamique et réactive.
+Ce projet implique le déploiement d'un blog utilisant React pour le front-end et Node.js pour le back-end. Hébergé sur Azure.
 
 ## Membres de l'Équipe
 - Damien Raunier
 - Baptiste Ringler
 
-## Ressources Azure Employées
+## Nos ressources Azure
 Notre application utilise les ressources Azure suivantes pour garantir performance, sécurité et disponibilité :
 - **Machines Virtuelles Azure**: Hébergement des applications front-end et back-end.
 - **Azure Database pour MySQL**: Gestion de la base de données.
@@ -15,6 +15,6 @@ Notre application utilise les ressources Azure suivantes pour garantir performan
 - **Groupes de Sécurité Réseau**: Régulation du trafic réseau avec des règles de sécurité.
 - **Règles d'alerte et actions**: Surveillance des performances avec des alertes automatiques.
 
-## Architecture et Sécurité
+## Architecture + Sécurité
 Une architecture soignée avec une séparation nette entre le front-end et le back-end. Communications sécurisées via des groupes de sécurité réseau. Des métriques et alertes sont en place pour une réaction rapide en cas d'incidents.
 
