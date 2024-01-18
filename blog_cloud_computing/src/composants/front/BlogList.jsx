@@ -9,13 +9,13 @@ function BlogList() {
   const [deleteConfirmation, setDeleteConfirmation] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/all-blogs')
+    fetch('http://20.111.16.18:3000/all-blogs')
       .then((response) => response.json())
       .then((data) => setBlogs(data));
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/blogs/${id}`, {
+    fetch(`http://20.111.16.18:3000/blogs/${id}`, {
       method: 'DELETE',
     })
       .then((response) => {

@@ -7,14 +7,14 @@ function EditBlog() {
     const [blog, setBlog] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/blogs/${id}`)
+        fetch(`http://20.111.16.18:3000/blogs/${id}`)
             .then(response => response.json())
             .then(data => setBlog(data));
     }, [id]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetch(`http://localhost:3000/blogs/${id}`, {
+        fetch(`http://20.111.16.18:3000/blogs/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(blog)

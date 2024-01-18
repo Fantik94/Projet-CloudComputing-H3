@@ -12,7 +12,7 @@ function AddBlog() {
 
     const blog = { titre, description, image_url, pseudo };
 
-    const response = await fetch('http://localhost:3000/blogs', {
+    const response = await fetch('http://20.111.16.18:3000/blogs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
