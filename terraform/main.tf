@@ -13,8 +13,8 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "tipiak-rg"
-  location = "West Europe"
+  name     = "dadabapt-rg"
+  location = "francecentral"
 }
 
 resource "azurerm_virtual_network" "example_vnet" {
@@ -65,7 +65,7 @@ resource "azurerm_linux_virtual_machine" "example" {
   name                = "Damien-Baptiste-vm"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
-  size                = "Standard_F4"
+  size                = "Standard_F2"
   admin_username      = "dadabapt"
   admin_password      = "Dadabapt94340@"
   network_interface_ids = [azurerm_network_interface.example.id]
@@ -77,15 +77,15 @@ resource "azurerm_linux_virtual_machine" "example" {
 
   source_image_reference {
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "20.04-LTS"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
     version   = "latest"
   }
 /*
   admin_ssh_key {
     username   = "fantik"
     public_key = azurerm_ssh_public_key.example.public_key
-  }
+  } 
   */
   disable_password_authentication = false
 }
@@ -100,7 +100,7 @@ resource "azurerm_mysql_server" "example" {
 
   sku_name   = "GP_Gen5_2"
   storage_mb = 5120
-  version    = "5.7"
+  version    = "8.0"
 
   auto_grow_enabled                 = true
   backup_retention_days             = 7
