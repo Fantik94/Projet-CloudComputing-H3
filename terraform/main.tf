@@ -106,7 +106,7 @@ resource "azurerm_mysql_server" "example" {
   backup_retention_days             = 7
   geo_redundant_backup_enabled      = false
   infrastructure_encryption_enabled = false
-  public_network_access_enabled     = false
+  public_network_access_enabled     = true
   ssl_enforcement_enabled           = true
   ssl_minimal_tls_version_enforced  = "TLS1_2"
 }
@@ -151,3 +151,145 @@ resource "azurerm_mssql_firewall_rule" "example" {
   start_ip_address    = "0.0.0.0" 
   end_ip_address      = "0.0.0.0"
 }*/
+
+resource "azurerm_mysql_firewall_rule" "allow_baptiste_ip" {
+  name                = "allow_baptiste_ip"
+  resource_group_name = azurerm_mysql_server.example.resource_group_name
+  server_name         = azurerm_mysql_server.example.name
+  start_ip_address    = "86.67.77.134" 
+  end_ip_address      = "86.67.77.134" 
+}
+
+resource "azurerm_mysql_firewall_rule" "allow_damien_ip" {
+  name                = "allow_damien_ip"
+  resource_group_name = azurerm_mysql_server.example.resource_group_name
+  server_name         = azurerm_mysql_server.example.name
+  start_ip_address    = "86.247.29.14" 
+  end_ip_address      = "86.247.29.14" 
+}
+
+resource "azurerm_mysql_firewall_rule" "allow_private_ip" {
+  name                = "allow_private_ip"
+  resource_group_name = azurerm_mysql_server.example.resource_group_name
+  server_name         = azurerm_mysql_server.example.name
+  start_ip_address    = "10.0.0.0" 
+  end_ip_address      = "10.0.0.255" 
+}
+
+resource "azurerm_mysql_firewall_rule" "allow_vm_ip" {
+  name                = "allow_vm_ip"
+  resource_group_name = azurerm_mysql_server.example.resource_group_name
+  server_name         = azurerm_mysql_server.example.name
+  start_ip_address    = "20.111.16.18" 
+  end_ip_address      = "20.111.16.18" 
+}
+
+resource "azurerm_network_security_group" "example_nsg" {
+  name                = "Damien-Baptiste-nic-nsg"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+}
+
+resource "azurerm_network_security_rule" "ssh_rule" {
+  name                        = "AllowMyIpAddressSSHInbound"
+  priority                    = 110
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "22"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.example.name
+  network_security_group_name = azurerm_network_security_group.example_nsg.name
+}
+
+resource "azurerm_network_security_rule" "custom_3000_rule" {
+  name                        = "AllowAnyCustom3000Inbound"
+  priority                    = 120
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "3000"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.example.name
+  network_security_group_name = azurerm_network_security_group.example_nsg.name
+}
+
+resource "azurerm_network_security_rule" "custom_3001_rule" {
+  name                        = "AllowAnyCustom3001Inbound"
+  priority                    = 130
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "3001"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.example.name
+  network_security_group_name = azurerm_network_security_group.example_nsg.name
+}
+
+resource "azurerm_network_interface_security_group_association" "example_nic_nsg_association" {
+  network_interface_id      = azurerm_network_interface.example.id
+  network_security_group_id = azurerm_network_security_group.example_nsg.id
+}
+
+resource "azurerm_network_security_rule" "custom_3000_out_rule" {
+  name                        = "AllowAnyCustom3000Outbound"
+  priority                    = 140
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "3000"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.example.name
+  network_security_group_name = azurerm_network_security_group.example_nsg.name
+}
+
+resource "azurerm_network_security_rule" "custom_3001_out_rule" {
+  name                        = "AllowAnyCustom3001Outbound"
+  priority                    = 150
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "3001"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.example.name
+  network_security_group_name = azurerm_network_security_group.example_nsg.name
+}
+
+resource "azurerm_network_security_rule" "allow_internet_out_rule" {
+  name                        = "AllowInternetOutBound"
+  priority                    = 65001
+  direction                   = "Outbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "Internet"
+  resource_group_name         = azurerm_resource_group.example.name
+  network_security_group_name = azurerm_network_security_group.example_nsg.name
+}
+
+resource "azurerm_network_security_rule" "deny_all_out_rule" {
+  name                        = "DenyAllOutBound"
+  priority                    = 65500
+  direction                   = "Outbound"
+  access                      = "Deny"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.example.name
+  network_security_group_name = azurerm_network_security_group.example_nsg.name
+}
+
